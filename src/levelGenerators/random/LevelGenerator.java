@@ -9,13 +9,13 @@ import java.util.Random;
 
 public class LevelGenerator implements MarioLevelGenerator {
     private int GROUND_Y_LOCATION = 13;
-    private float GROUND_PROB = 0.4f;
+    private float GROUND_PROB = 0.8f;
     private int OBSTACLES_LOCATION = 10;
     private float OBSTACLES_PROB = 0.1f;
     private int COLLECTIBLE_LOCATION = 3;
     private float COLLECTIBLE_PROB = 0.05f;
     private float ENEMY_PROB = 0.1f;
-    private int FLOOR_PADDING = 3;
+    private int FLOOR_PADDING = 10;
 
     @Override
     public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
