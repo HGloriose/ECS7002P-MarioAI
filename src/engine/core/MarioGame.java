@@ -303,8 +303,10 @@ public class MarioGame {
     public void buildWorld(String level, float scale) {
         String[] lines = level.split("\n");
         int tWidth = lines[0].length();
+//        System.out.println("tWidth: = lines[0].length() " + tWidth); // width of the frame --> 150
         int w = (int)(tWidth * 16 * scale);
         int tHeight = lines.length;
+//        System.out.println("tHeight = lines.length " + tHeight); // length of the frame --> 16
         int h = (int)(tHeight * 16 * scale);
 
         this.window = new JFrame("Mario AI Framework");

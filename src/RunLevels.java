@@ -25,6 +25,7 @@ public class RunLevels {
         boolean usingGenerator = true;
         int agentTimer = 20;
         String[] levels = new String[]{"levels/original/lvl-1.txt", "levels/original/lvl-2.txt"};
+//        String levelFile = null;
 
         // Check arguments for overwrite:
         if (args.length >= 4) {
