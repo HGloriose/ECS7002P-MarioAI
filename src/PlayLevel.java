@@ -1,5 +1,6 @@
 import agents.MarioAgent;
 import engine.core.*;
+import engine.helper.MarioStats;
 import levelGenerators.MarioLevelGenerator;
 
 import java.util.Arrays;
@@ -45,7 +46,7 @@ public class PlayLevel {
 //        System.out.println("numGaps: " +  numGaps); // This will count the number of single gaps.
 
 
-        //Gap Value - TODO - consecutive gaps '-' shoudl be counted as one
+        //Gap Value - TODO - consecutive gaps '-' should be counted as one
         String [] ListLevels = level.split("\n");
         double gapValue = (double) ListLevels[15].chars().filter(num -> num == '-').count();
         double gapFitness = (gapValue - GAP_IDEAL)*GAP_WEIGHT;
@@ -55,6 +56,27 @@ public class PlayLevel {
         return totalLevelFeatFitness;
     }
 
+    private static double simulationAnalysis(MarioAgent [] agents, MarioGame game, String level, int repsPerLevel){
+
+
+        for (int i = 0; i< agents.length; i++) {
+
+            MarioStats average = new MarioStats();
+
+            for( int j = 0; j< repsPerLevel; j++) {
+                MarioResult result = game.runGame(agents[i], level, 20, 0, false);
+                System.out.println((i+1) + "/" + ";" + (j+1) + "/" + repsPerLevel + ": "
+                        + result.getGameStatus().toString());
+                MarioStats stats = resultToStats(result);
+                average = average.merge(stats);
+
+            }
+        }
+
+        return (double)0;
+
+    }
+
     public static void main(String[] args) {
 
         // Run settings:
@@ -62,7 +84,7 @@ public class PlayLevel {
         boolean generateDifferentLevels = true;  // If true, each play will be a different generated level.
         String levelFile = null; // "levels/original/lvl-11.txt";  // null;
         //String levelFile = "levels/original/lvl-11.txt";  // null;
-        MarioLevelGenerator generator = new levelGenerators.random.LevelGenerator();  // null;
+        MarioLevelGenerator generator = new levelGenerators.notch.LevelGenerator();  // null;
 
         // Note: either levelFile or generator must be non-null. If neither is null, levelFile takes priority.
         if (levelFile == null && generator == null) {
@@ -95,7 +117,7 @@ public class PlayLevel {
 
             // Print the results of the game
             System.out.println(result.getGameStatus().toString());
-            System.out.println(resultToStats(result).toString());
+//            System.out.println(resultToStats(result).toString());
 
 
             if (generateDifferentLevels) {
