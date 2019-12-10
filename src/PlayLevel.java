@@ -2,6 +2,11 @@ import agents.MarioAgent;
 import engine.core.*;
 import engine.helper.MarioStats;
 import levelGenerators.MarioLevelGenerator;
+import levelGenerators.GroupG.LevelGenerator;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.lang.*;
 
 import java.util.Arrays;
 
@@ -84,7 +89,56 @@ public class PlayLevel {
         boolean generateDifferentLevels = true;  // If true, each play will be a different generated level.
         String levelFile = null; // "levels/original/lvl-11.txt";  // null;
         //String levelFile = "levels/original/lvl-11.txt";  // null;
-        MarioLevelGenerator generator = new levelGenerators.notch.LevelGenerator();  // null;
+        //MarioLevelGenerator generator = new levelGenerators.notch.LevelGenerator();  // null;
+
+        MarioLevelGenerator generator = new levelGenerators.GroupG.LevelGenerator().selectRandomGenerator();
+
+        //List<MarioLevelGenerator> generators = new ArrayList<>();
+        //List<String> generators = new ArrayList<>();
+        StringBuilder generators = new StringBuilder();
+        String [] levelsLines = new String[16];
+
+        for (int j = 0; j<levelsLines.length; j++){
+            levelsLines[j] = "";
+
+        }
+
+
+        int maxGenerators = 15;
+
+        for(int i = 0; i<maxGenerators; i++){
+            MarioLevelGenerator temp = new levelGenerators.GroupG.LevelGenerator().selectRandomGenerator();
+            String tempLevel = generateLevel(temp);
+            generators.append(tempLevel);
+            System.out.println(tempLevel);
+            String [] listTemp = tempLevel.split("\n");
+            for (int j = 0; j<levelsLines.length; j++){
+//                System.out.println(i);
+                int startSub = (int)(150/(maxGenerators)*(i));
+                int endSub = (int)(150/(maxGenerators)*(i+1));
+                System.out.println("startSub: " + startSub + " | endSub: " + endSub);
+                levelsLines[j] += listTemp[j].substring(startSub, endSub);
+//                System.out.println("levelsLines["+j+"]: " + levelsLines[j]);
+            }
+        }
+
+        String randomLevel = new String();
+
+        for (int j = 0; j<levelsLines.length; j++){
+            randomLevel += levelsLines[j] + "\n";
+
+        }
+
+        System.out.println("randomLevel: " + "\n" + randomLevel);
+
+//        System.out.println(generators);
+//
+//        System.out.println("generator.getGeneratorName(): " +  generator.getGeneratorName());
+//
+//        System.out.println(generators.toString());
+
+
+
 
         // Note: either levelFile or generator must be non-null. If neither is null, levelFile takes priority.
         if (levelFile == null && generator == null) {
@@ -96,11 +150,13 @@ public class PlayLevel {
         MarioAgent agent = new agents.robinBaumgarten.Agent();
 
         // Grab a level from file, found in directory "levels/" or pass null to generate a level automatically.
-        String level = getLevel(levelFile, generator);
-        double featureFitness = featureAnalysis(level);
+//        String level = getLevel(levelFile, generator);
+        double featureFitness = featureAnalysis(randomLevel);
+
+//        System.out.println("level: " + level);
 
         // Display the entire level.
-        game.buildWorld(level, 1); //scale is just the size of the screen
+        game.buildWorld(randomLevel, 1); //scale is just the size of the screen
 
         // Repeat the game several times, maybe.
         int playAgain = 0;
@@ -113,15 +169,15 @@ public class PlayLevel {
             //MarioResult result = game.playGame(level, 200, 0);
 
             // ... Or with an AI agent
-            MarioResult result = game.runGame(agent, level, 20, 0, visuals);
+            MarioResult result = game.runGame(agent, randomLevel, 1000, 0, visuals);
 
             // Print the results of the game
             System.out.println(result.getGameStatus().toString());
-//            System.out.println(resultToStats(result).toString());
+            System.out.println(resultToStats(result).toString());
 
 
             if (generateDifferentLevels) {
-                level = generateLevel(generator);
+                randomLevel = generateLevel(generator);
             }
 
             // Check if we should play again. TODO: Be able to run the game consecutively for a number fo times. Do that in RunLevels.
