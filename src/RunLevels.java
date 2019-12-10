@@ -20,8 +20,8 @@ public class RunLevels {
 
     public static void main(String[] args) {
         // Run default settings:
-        int noLevels = 2;
-        int repsPerLevel = 10;
+        int noLevels = 5;
+        int repsPerLevel = 3;
         boolean usingGenerator = true;
         int agentTimer = 20;
         String[] levels = new String[]{"levels/original/lvl-1.txt", "levels/original/lvl-2.txt"};
@@ -47,6 +47,7 @@ public class RunLevels {
         MarioGame game = new MarioGame();
         MarioAgent agent = new agents.robinBaumgarten.Agent();  // TODO: agent to play the game
         MarioLevelGenerator generator = new levelGenerators.random.LevelGenerator();  // TODO: level generator
+        String ensembleLevel = new String(""); //null;
 
         if (!usingGenerator) {  // Make sure the value is correct if not using level generator.
             noLevels = levels.length;
@@ -57,7 +58,11 @@ public class RunLevels {
             // Find level
             String level;
             if (usingGenerator) {
-                level = generateLevel(generator);
+                if (ensembleLevel != null){
+                    level = new levelGenerators.GroupG.LevelGenerator().ensembleGenerators(5);;
+                } else {
+                    level = generateLevel(generator);
+                }
             } else {
                 level = retrieveLevel(levels[i]);
             }

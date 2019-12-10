@@ -19,6 +19,9 @@ public class PlayLevel {
     private static double GAP_WEIGHT = 0.4;
 
     private static double featureAnalysis(String level){
+        //TODO:  PLAYBILITY - NUMBER OF TIME_OUT  (INCREASE THE NUMBER OF GENERATORS) - UP 20 SMOOTHLY
+
+
         /*
         1. Identify a set of features
          - Check the number of gaps on the floor
