@@ -8,7 +8,7 @@ public class LevelGenerator {
 
     // create a function that randomly select a generator below
 
-    public String randomEnsembleGenerators(int numGenetors){
+    public String ensembleGenerators(int maxGenerators){
 
         StringBuilder generators = new StringBuilder();
         String [] levelsLines = new String[16];
@@ -18,7 +18,7 @@ public class LevelGenerator {
 
         }
 
-        int maxGenerators = 10;
+        maxGenerators = 10;
 
         for(int i = 0; i<maxGenerators; i++){
             MarioLevelGenerator generator = new levelGenerators.GroupG.LevelGenerator().selectRandomGenerator();
