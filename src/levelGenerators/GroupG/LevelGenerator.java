@@ -2,26 +2,51 @@ package levelGenerators.GroupG;
 import levelGenerators.MarioLevelGenerator;
 import java.util.Random;
 
+import static engine.helper.RunUtils.generateLevel;
+
 public class LevelGenerator {
 
-    //Select a generator randomly (out of the 3 below)
+    // create a function that randomly select a generator below
 
-    // list the generated.
-    private String RANDOM_GENERATOR = "random";
-    private String NOTCH_GENERATOR = "notch";
-    private String BENWEBER_GENERATOR = "benWeber";
-    private String [] LIST_GENERATORS =  {RANDOM_GENERATOR, NOTCH_GENERATOR, BENWEBER_GENERATOR};
+    public String randomEnsembleGenerators(int numGenetors){
 
+        StringBuilder generators = new StringBuilder();
+        String [] levelsLines = new String[16];
 
-    // create a function that randomly select the generator from the list above
+        for (int j = 0; j<levelsLines.length; j++){
+            levelsLines[j] = "";
+
+        }
+
+        int maxGenerators = 10;
+
+        for(int i = 0; i<maxGenerators; i++){
+            MarioLevelGenerator generator = new levelGenerators.GroupG.LevelGenerator().selectRandomGenerator();
+            String genLevel = generateLevel(generator);
+            generators.append(genLevel);
+            String [] listTemp = genLevel.split("\n");
+            for (int j = 0; j<levelsLines.length; j++){
+                int startSub = (int)(150/(maxGenerators)*(i));
+                int endSub = (int)(150/(maxGenerators)*(i+1));
+                levelsLines[j] += listTemp[j].substring(startSub, endSub);
+            }
+        }
+
+        String randomLevel = new String();
+
+        for (int j = 0; j<levelsLines.length; j++){
+            randomLevel += levelsLines[j] + "\n";
+
+        }
+
+        return randomLevel;
+    }
 
     public MarioLevelGenerator selectRandomGenerator(){
         Random randSelect = new Random();
         int i = randSelect.nextInt(3);
-        System.out.println("random i: "+ i);
         MarioLevelGenerator generator = null;
 
-        //since there is only 3 you can do a a for loop and check or case
         switch(i){
             case 0: generator = new levelGenerators.random.LevelGenerator(); break;
             case 1: generator = new levelGenerators.notch.LevelGenerator(); break;

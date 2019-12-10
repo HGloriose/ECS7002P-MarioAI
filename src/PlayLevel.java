@@ -90,11 +90,8 @@ public class PlayLevel {
         String levelFile = null; // "levels/original/lvl-11.txt";  // null;
         //String levelFile = "levels/original/lvl-11.txt";  // null;
         //MarioLevelGenerator generator = new levelGenerators.notch.LevelGenerator();  // null;
+        MarioLevelGenerator generator;
 
-        MarioLevelGenerator generator = new levelGenerators.GroupG.LevelGenerator().selectRandomGenerator();
-
-        //List<MarioLevelGenerator> generators = new ArrayList<>();
-        //List<String> generators = new ArrayList<>();
         StringBuilder generators = new StringBuilder();
         String [] levelsLines = new String[16];
 
@@ -103,22 +100,17 @@ public class PlayLevel {
 
         }
 
-
-        int maxGenerators = 15;
+        int maxGenerators = 10;
 
         for(int i = 0; i<maxGenerators; i++){
-            MarioLevelGenerator temp = new levelGenerators.GroupG.LevelGenerator().selectRandomGenerator();
-            String tempLevel = generateLevel(temp);
-            generators.append(tempLevel);
-            System.out.println(tempLevel);
-            String [] listTemp = tempLevel.split("\n");
+            generator = new levelGenerators.GroupG.LevelGenerator().selectRandomGenerator();
+            String genLevel = generateLevel(generator);
+            generators.append(genLevel);
+            String [] listTemp = genLevel.split("\n");
             for (int j = 0; j<levelsLines.length; j++){
-//                System.out.println(i);
                 int startSub = (int)(150/(maxGenerators)*(i));
                 int endSub = (int)(150/(maxGenerators)*(i+1));
-                System.out.println("startSub: " + startSub + " | endSub: " + endSub);
                 levelsLines[j] += listTemp[j].substring(startSub, endSub);
-//                System.out.println("levelsLines["+j+"]: " + levelsLines[j]);
             }
         }
 
@@ -130,15 +122,6 @@ public class PlayLevel {
         }
 
         System.out.println("randomLevel: " + "\n" + randomLevel);
-
-//        System.out.println(generators);
-//
-//        System.out.println("generator.getGeneratorName(): " +  generator.getGeneratorName());
-//
-//        System.out.println(generators.toString());
-
-
-
 
         // Note: either levelFile or generator must be non-null. If neither is null, levelFile takes priority.
         if (levelFile == null && generator == null) {
