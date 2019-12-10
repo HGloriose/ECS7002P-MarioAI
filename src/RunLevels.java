@@ -25,7 +25,6 @@ public class RunLevels {
         boolean usingGenerator = true;
         int agentTimer = 20;
         String[] levels = new String[]{"levels/original/lvl-1.txt", "levels/original/lvl-2.txt"};
-//        String levelFile = null;
 
         // Check arguments for overwrite:
         if (args.length >= 4) {
@@ -46,7 +45,7 @@ public class RunLevels {
 
         // Create a MarioGame instance, AI to play the game and level generator (not necessary if `levels' used)
         MarioGame game = new MarioGame();
-        MarioAgent agent = new agents.trondEllingsen.Agent();  // TODO: agent to play the game
+        MarioAgent agent = new agents.robinBaumgarten.Agent();  // TODO: agent to play the game
         MarioLevelGenerator generator = new levelGenerators.random.LevelGenerator();  // TODO: level generator
 
         if (!usingGenerator) {  // Make sure the value is correct if not using level generator.

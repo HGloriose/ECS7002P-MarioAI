@@ -90,7 +90,7 @@ public class PlayLevel {
         String levelFile = null; // "levels/original/lvl-11.txt";  // null;
         MarioLevelGenerator generator =  null; // new levelGenerators.notch.LevelGenerator();
 
-        String ensembleLevel = new levelGenerators.GroupG.LevelGenerator().ensembleGenerators(5); //null
+        String ensembleLevel = null; //new levelGenerators.GroupG.LevelGenerator().ensembleGenerators(5); //null
 
         String level = "";
 
