@@ -25,7 +25,7 @@ public class LevelGenerator implements MarioLevelGenerator {
     private double CHANCE_PIPE = 0.1;
     private int PIPE_MIN_HEIGHT = 2;
     private double PIPE_HEIGHT = 3.0;
-    private int minX = 5;
+    private int minX = 20; //we need a minimum distance at the begining before seeing a gap
     private double CHANCE_HILL = 0.1;
     private double CHANCE_END_HILL = 0.3;
     private double CHANCE_HILL_ENEMY = 0.3;
@@ -35,7 +35,7 @@ public class LevelGenerator implements MarioLevelGenerator {
     private double CHANGE_HILL_CHANGE = 0.1;
     private double GAP_OFFSET = -5;
     private double GAP_RANGE = 10;
-    private int GROUND_MAX_HEIGHT = 5;
+    private int GROUND_MAX_HEIGHT = 2;
 
     // controls the fun
     Random rand;
