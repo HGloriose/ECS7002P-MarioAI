@@ -18,8 +18,6 @@ public class LevelGenerator {
 
         }
 
-        maxGenerators = 10;
-
         for(int i = 0; i<maxGenerators; i++){
             MarioLevelGenerator generator = new levelGenerators.GroupG.LevelGenerator().selectRandomGenerator();
             String genLevel = generateLevel(generator);

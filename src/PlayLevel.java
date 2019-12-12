@@ -90,10 +90,11 @@ public class PlayLevel {
         // Run settings:
         boolean visuals = true;  // Set to false if no visuals required for this run.
         boolean generateDifferentLevels = true;  // If true, each play will be a different generated level.
-        String levelFile = null; // "levels/original/lvl-11.txt";  // null;
-        MarioLevelGenerator generator =  null; // new levelGenerators.notch.LevelGenerator();
+        String levelFile = null; //"levels/original/lvl-11.txt";  // null;
+        MarioLevelGenerator generator = new levelGenerators.benWeber.LevelGenerator();
 
-        String ensembleLevel = null; //new levelGenerators.GroupG.LevelGenerator().ensembleGenerators(5); //null
+        int maxGenerator = 1;
+        String ensembleLevel = null; //new levelGenerators.GroupG.LevelGenerator().ensembleGenerators(maxGenerator); //null
 
         String level = "";
 
@@ -128,7 +129,7 @@ public class PlayLevel {
             //MarioResult result = game.playGame(level, 200, 0);
 
             // ... Or with an AI agent
-            MarioResult result = game.runGame(agent, level, 1000, 0, visuals);
+            MarioResult result = game.runGame(agent, level, 20, 0, visuals);
 
             // Print the results of the game
             System.out.println(result.getGameStatus().toString());
@@ -139,7 +140,7 @@ public class PlayLevel {
                 if ((levelFile != null || generator != null)){
                     level = generateLevel(generator);
                 } else {
-                    level = new levelGenerators.GroupG.LevelGenerator().ensembleGenerators(5);
+                    level = new levelGenerators.GroupG.LevelGenerator().ensembleGenerators(maxGenerator);
                 }
             }
 
